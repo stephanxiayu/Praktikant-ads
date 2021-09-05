@@ -73,7 +73,7 @@ class _NotesPageState extends State<NotesPage> {
                     "https://assets3.lottiefiles.com/packages/lf20_fduqekix.json")
                 : notes.isEmpty
                     ? Lottie.network(
-                        "https://assets9.lottiefiles.com/packages/lf20_wdnoqlgy.json")
+                        "https://assets6.lottiefiles.com/packages/lf20_pahhcodj.json")
                     : buildNotes()),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.black87,
