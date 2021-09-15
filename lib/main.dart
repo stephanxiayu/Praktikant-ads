@@ -21,18 +21,20 @@ class MyApp extends StatelessWidget {
   static final String title = 'Notes SQLite';
 
   @override
-  Widget build(BuildContext context) => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: title,
-        themeMode: ThemeMode.dark,
-        theme: ThemeData(
-          primaryColor: Colors.white,
-          scaffoldBackgroundColor: Colors.teal[900],
-          appBarTheme: AppBarTheme(
-            backgroundColor: Colors.transparent,
-            elevation: 0,
+  Widget build(BuildContext context) => ChangeNotifierProvider(create:(BuildContext context)=> AdmobHelper(),
+    child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: title,
+          themeMode: ThemeMode.dark,
+          theme: ThemeData(
+            primaryColor: Colors.white,
+            scaffoldBackgroundColor: Colors.teal[900],
+            appBarTheme: AppBarTheme(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+            ),
           ),
-        ),
-        home: ChangeNotifierProvider(create:(BuildContext context)=> AdmobHelper(),child: NotesPage()), 
-      );
+          home:  NotesPage()) 
+        
+  );
 }
