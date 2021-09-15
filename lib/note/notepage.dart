@@ -79,7 +79,7 @@ class _NotesPageState extends State<NotesPage> {
           backgroundColor: Colors.black87,
           child: Icon(Icons.add),
           onPressed: () async {
-            admobHelper.loadRewardedAd();
+           
             await Navigator.of(context).push(
                 MaterialPageRoute(builder: (context) => AddEditNotePage()));
 

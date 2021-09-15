@@ -9,7 +9,7 @@ class AdmobHelper extends ChangeNotifier {
 
   int getrewardpoint() => _rewardedPoint;
 
-  static String get bannerUnit => 'ca-app-pub-3940256099942544/6300978111';
+  static String get bannerUnit => 'ca-app-pub-9301487529015201/7644793052';
 
   late InterstitialAd _interstitialAd;
 
@@ -26,7 +26,7 @@ class AdmobHelper extends ChangeNotifier {
   static BannerAd getBannerAd() {
     BannerAd bAd = new BannerAd(
         size: AdSize.fullBanner,
-        adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+        adUnitId: 'ca-app-pub-9301487529015201/7644793052',
         listener: BannerAdListener(onAdClosed: (Ad ad) {
           print("Ad Closed");
         }, onAdFailedToLoad: (Ad ad, LoadAdError error) {
@@ -41,76 +41,4 @@ class AdmobHelper extends ChangeNotifier {
     return bAd;
   }
 
-  void createInterad() {
-    InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712',
-      request: AdRequest(),
-      adLoadCallback:
-          InterstitialAdLoadCallback(onAdLoaded: (InterstitialAd ad) {
-        _interstitialAd = ad;
-        num_of_attempt_load = 0;
-      }, onAdFailedToLoad: (LoadAdError error) {
-        num_of_attempt_load + 1;
-        _interstitialAd;
-
-        if (num_of_attempt_load <= 2) {
-          createInterad();
-        }
-      }),
-    );
-  }
-
-  void showInterad() {
-    if (_interstitialAd == null) {
-      return;
-    }
-
-    _interstitialAd.fullScreenContentCallback = FullScreenContentCallback(
-        onAdShowedFullScreenContent: (InterstitialAd ad) {
-      print("ad onAdshowedFullscreen");
-    }, onAdDismissedFullScreenContent: (InterstitialAd ad) {
-      print("ad Disposed");
-      ad.dispose();
-    }, onAdFailedToShowFullScreenContent: (InterstitialAd ad, AdError aderror) {
-      print('$ad OnAdFailed $aderror');
-      ad.dispose();
-      createInterad();
-    });
-
-    _interstitialAd.show();
-
-    _interstitialAd;
-  }
-
-  void loadRewardedAd() {
-    RewardedAd.load(
-        adUnitId: 'ca-app-pub-3940256099942544/5224354917',
-        request: AdRequest(),
-        rewardedAdLoadCallback:
-            RewardedAdLoadCallback(onAdLoaded: (RewardedAd ad) {
-          print("Ad loaded");
-          this._rewardedAd = ad;
-        }, onAdFailedToLoad: (LoadAdError error) {
-          // loadRewardedAd();
-        }));
-  }
-
-  void showRewaredAd() {
-    _rewardedAd.show(onUserEarnedReward: (RewardedAd ad, RewardItem rpoint) {
-      print("Reward Earned is ${rpoint.amount}");
-
-      notifyListeners();
-    });
-
-    _rewardedAd.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (RewardedAd ad) {},
-      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
-        ad.dispose();
-      },
-      onAdDismissedFullScreenContent: (RewardedAd ad) {
-        ad.dispose();
-      },
-      onAdImpression: (RewardedAd ad) => print('$ad impression occurred.'),
-    );
-  }
 }
